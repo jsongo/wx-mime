@@ -8,7 +8,9 @@ module.exports = function(msg, page) { // page -> index page
         msg.errMsg && msg.errMsg.type;
     if (type === 'dig') {
       if (msg.errCode == 0) {
-        var result = msg.data.answer;
+        var result = msg.data.answer,
+            x = msg.data.x,
+            y = msg.data.y;
         if (result < 0) { // 挖到金子了
           app.decreaseCount();
           var leftGolds = page.data.leftGolds,
@@ -20,7 +22,7 @@ module.exports = function(msg, page) { // page -> index page
         }
         // 把相应的格子翻出来
         page.setData({
-          ['mimeMap[' + page.y + '][' + page.x + ']']: result,
+          ['mimeMap[' + y + '][' + x + ']']: result,
         });
       }
     }

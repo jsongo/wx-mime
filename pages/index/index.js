@@ -47,8 +47,8 @@ Page({
     }
 
     // 取到这格的坐标
-    this.x = event.target.dataset.x;
-    this.y = event.target.dataset.y;
+    this.x = parseInt(event.target.dataset.x);
+    this.y = parseInt(event.target.dataset.y);
     console.log(this.x, this.y);
     // 上报坐标
     this.reportMyChoice();

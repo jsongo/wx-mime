@@ -15,9 +15,12 @@ module.exports = function(msg, page) { // page -> index page
           app.decreaseCount();
           var leftGolds = page.data.leftGolds,
             score = page.data.score;
+          if (msg.data.isMe) {
+            score ++;
+          }
           page.setData({
             leftGolds: --leftGolds,
-            score: ++score
+            score: score
           });
         }
         // 把相应的格子翻出来

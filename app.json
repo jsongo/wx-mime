@@ -1,6 +1,7 @@
 {
   "pages":[
     "pages/entry/entry",
+    "pages/gameover/gameover",
     "pages/index/index"
   ],
   "window":{

@@ -7,27 +7,27 @@ module.exports = function(msg, page) { // page -> index page
     var type = msg.data && msg.data.type || 
         msg.errMsg && msg.errMsg.type;
     if (type === 'dig') {
-      if (msg.errCode == 0) {
-        var result = msg.data.answer,
-            x = msg.data.x,
-            y = msg.data.y;
-        if (result < 0) { // 挖到金子了
-          app.decreaseCount();
-          var leftGolds = page.data.leftGolds,
-            score = page.data.score;
-          if (msg.data.isMe) {
-            score ++;
-          }
-          page.setData({
-            leftGolds: --leftGolds,
-            score: score
-          });
+        if (msg.errCode == 0) {
+            var result = msg.data.answer,
+                x = msg.data.x,
+                y = msg.data.y;
+            if (result < 0) { // 挖到金子了
+                app.decreaseCount();
+                var leftGolds = page.data.leftGolds,
+                    score = page.data.score;
+                if (msg.data.isMe) {
+                    score ++;
+                }
+                page.setData({
+                    leftGolds: --leftGolds,
+                    score: score
+                });
+            }
+            // 把相应的格子翻出来
+            page.setData({
+              ['mimeMap[' + y + '][' + x + ']']: result,
+            });
         }
-        // 把相应的格子翻出来
-        page.setData({
-          ['mimeMap[' + y + '][' + x + ']']: result,
-        });
-      }
     }
     else if (type === 'create') {
         if(msg.errCode == 0) {
@@ -41,6 +41,14 @@ module.exports = function(msg, page) { // page -> index page
         }
         else {
             wx.navigateBack();
+        }
+    }
+    else if (type === 'over') { // 游戏结束
+        if(msg.errCode == 0) {
+            app.setMyScore(msg.data.score);
+            wx.navigateTo({
+                url: '../gameover/gameover'
+            });
         }
     }
 }

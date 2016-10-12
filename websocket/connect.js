@@ -5,7 +5,7 @@ module.exports = (function() {
         connCallback = null,
         msgReceived = {};
 
-    function connect(callback) {
+    function connect(callback) { // 发起链接
         var app = getApp(),
             roomNo = app.getRoomNo();
         wx.connectSocket({
@@ -14,8 +14,8 @@ module.exports = (function() {
         connCallback = callback;
     }
 
-    function initEvent() {
-        wx.onSocketOpen(function(res){
+    function initEvent() { // 初始化一些webSocket事件
+        wx.onSocketOpen(function(res){ // webSocket打开事件处理
             socketOpened = true;
             console.log('websocket opened.');
             // 处理一下没发出去的消息
@@ -28,11 +28,11 @@ module.exports = (function() {
             // connection callback
             connCallback && connCallback.call(null);
         });
-        wx.onSocketMessage(function(res) {
+        wx.onSocketMessage(function(res) { // 收到服务器消息时的处理
             console.log('received msg: ' + res.data);
             msgReceived.callback && msgReceived.callback.call(null, res.data, ...msgReceived.params);
         });
-        wx.onSocketError(function(res){
+        wx.onSocketError(function(res){ // 链接出错时的处理
             console.log('webSocket fail');
         });
     }

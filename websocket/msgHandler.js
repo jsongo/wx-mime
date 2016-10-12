@@ -1,12 +1,10 @@
-
 module.exports = function(msg, page) { // page -> index page
     var app = getApp();
-    // console.log(msg);
-    // if (typeof(msg) === 'object') {
+
     msg = JSON.parse(msg);
     var type = msg.data && msg.data.type || 
         msg.errMsg && msg.errMsg.type;
-    if (type === 'dig') {
+    if (type === 'dig') { // 挖金子操作
         if (msg.errCode == 0) {
             var result = msg.data.answer,
                 x = msg.data.x,
@@ -29,11 +27,11 @@ module.exports = function(msg, page) { // page -> index page
             });
         }
     }
-    else if (type === 'create') {
+    else if (type === 'create') { // 创建或进入房间
         if(msg.errCode == 0) {
             var mimeMap = msg.data.map;
             app.updateMap(mimeMap);         // 地图场景
-            app.setCount(msg.data.count);   // 金子的个数
+            app.setCount(msg.data.count);   // 金子个数
             page.setData({
               mimeMap: mimeMap,
               leftGolds: msg.data.count     // app.getCount()

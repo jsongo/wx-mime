@@ -6,7 +6,7 @@ var app = getApp();
 
 Page({
     data: {
-        mimeMap: null,
+        mimeMap: null, 
         leftGolds: 0, // 总共有多少金子
         score: 0,     // 我的得分
         roomNo: 0     // 房间号

@@ -1,6 +1,8 @@
 var net = require('../../common/net.js');
+// require('../../res/socket.io.js');
 
 var app = getApp();
+// console.log(io);
 
 Page({
   data: {

@@ -52,7 +52,7 @@ Page({
     },
 
     reportMyChoice: function() {
-        roomNo = app.getRoomNo();
+        var roomNo = app.getRoomNo();
         websocket.send({
             type: 'dig',
             x: this.x,
